@@ -1,97 +1,103 @@
 import json
 from pathlib import Path
 
-PASTA = Path(__file__).parent
-ARQUIVO = PASTA / "clientes.json"
+FOLDER = Path(__file__).parent
+FILE = FOLDER / "customers.json"
 
 
-def carregar_clientes():
-    if ARQUIVO.exists():
-        # O "O UTF-8" É PARA PODER UTILIZAR AS LETRAS: "ÇÂÉ".
-        with open(ARQUIVO, "r", encoding="utf-8") as arquivo:
-            return json.load(arquivo)
+def load_customers():
+    if FILE.exists():
+        # UTF-8 encoding allows special characters to be stored correctly.
+        with open(FILE, "r", encoding="utf-8") as file:
+            return json.load(file)
     return []
 
 
-def salvar_clientes(clientes):
-    with open(ARQUIVO, "w", encoding="utf-8") as arquivo:
-        json.dump(clientes, arquivo, indent=4, ensure_ascii=False)
+def save_customers(customers):
+    with open(FILE, "w", encoding="utf-8") as file:
+        json.dump(customers, file, indent=4, ensure_ascii=False)
 
 
-clientes = carregar_clientes()
+customers = load_customers()
 
-print("===== LISTA DE CLIENTES =====")
+print("===== CUSTOMER LIST =====")
 
 while True:
 
-    print("\n[1] ADICIONAR")
-    print("[2] VISUALIZAR")
+    print("\n[1] ADD")
+    print("[2] VIEW")
+    print("[3] DELETE")
+    print("[4] EXIT")
 
-    print("[3] DELETAR")
-    print("[4] SAIR")
+    option = input("\nSelect an option: ")
 
-    opcao = input("\nSelecione uma opção: ")
-
-    match opcao:
+    match option:
 
         case "1":
 
-            novo_id = max((c["id"] for c in clientes), default=0) + 1
+            new_id = max((customer["id"] for customer in customers), default=0) + 1
 
-            nome = input("Nome: ")
+            name = input("Name: ")
+
             while True:
                 try:
-                    idade = int(input("Idade: "))
+                    age = int(input("Age: "))
                     break
                 except ValueError:
-                    print("DIGITE APENAS NUMEROS!")
-            produto = input("Produto: ")
+                    print("PLEASE ENTER NUMBERS ONLY!")
 
-            clientes.append(
-                {"id": novo_id, "nome": nome, "idade": idade, "produto": produto}
+            product = input("Product: ")
+
+            customers.append(
+                {
+                    "id": new_id,
+                    "name": name,
+                    "age": age,
+                    "product": product,
+                }
             )
 
-            salvar_clientes(clientes)
+            save_customers(customers)
 
-            print("\nCliente cadastrado com sucesso!")
+            print("\nCustomer added successfully!")
 
         case "2":
 
-            if not clientes:
-                print("\nNenhum cliente cadastrado.")
+            if not customers:
+                print("\nNo customers registered.")
             else:
 
                 print()
 
-                for cliente in clientes:
-                    print(f"ID: {cliente['id']}")
-                    print(f"NOME: {cliente['nome'].upper()}")
-                    print(f"IDADE: {cliente['idade']}")
-                    print(f"PRODUTO: {cliente['produto'].title()}")
+                for customer in customers:
+                    print(f"ID: {customer['id']}")
+                    print(f"NAME: {customer['name'].upper()}")
+                    print(f"AGE: {customer['age']}")
+                    print(f"PRODUCT: {customer['product'].title()}")
                     print("-" * 30)
 
         case "3":
 
-            nome = input("Nome completo do cliente: ").upper()
+            name = input("Customer full name: ").upper()
 
-            for indice, cliente in enumerate(clientes):
+            for index, customer in enumerate(customers):
 
-                if cliente["nome"].upper() == nome:
+                if customer["name"].upper() == name:
 
-                    del clientes[indice]
-                    salvar_clientes(clientes)
+                    del customers[index]
+                    save_customers(customers)
 
-                    print("Cliente removido!")
+                    print("Customer removed successfully!")
                     break
 
             else:
-                print("Cliente não encontrado.")
+                print("Customer not found.")
 
         case "4":
 
-            print("Sistema encerrado.")
+            print("System closed.")
             break
 
         case _:
 
-            print("Opção inválida.")
+            print("Invalid option.")
