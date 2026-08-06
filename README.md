@@ -1,39 +1,41 @@
-# CRUD de clientes
+# Customer CRUD
 
-Projeto desenvolvido em python para a pratica de logica de programaçâo.
+A Python project developed to practice programming logic and CRUD operations.
 
-## Funcionalidades 
+## Features
 
-- Cadastro de clientes 
-- Listagem de clientes
-- Exclusâo de clientes 
-- Armazenamento de dados em JSON
+- Add customers
+- View customers
+- Delete customers
+- Store data in a JSON file
 
-## Tecnologias
+## Technologies
 
-- Pyhton
+- Python
 - JSON
 - Pathlib
 
-## Como executar 
+## How to Run
+
+Clone the repository:
 
 ```bash
 git clone https://github.com/viniciusdarwin/crud-clientes.git
 ```
 
-Entre na pasta:
+Navigate to the project folder:
 
 ```bash
 cd crud-clientes
 ```
 
-Execute:
+Run the application:
 
 ```bash
 python CRUD_CLIENTES.py
 ```
 
-## Estrutura
+## Project Structure
 
 ```
 clientes.json
@@ -41,12 +43,13 @@ CRUD_CLIENTES.py
 README.md
 ```
 
-## Objetivo 
+## Purpose
 
-Este projeto foi criado e desenvolvido com o objetivo de praticar:
-- Listas
-- Dicionários
-- Funções
-- Tratamento de exceções
-- Manipulação de arquivos
-- Persistência de dados com JSON
+This project was created to practice the following Python concepts:
+
+- Lists
+- Dictionaries
+- Functions
+- Exception Handling
+- File Handling
+- Data Persistence with JSON
